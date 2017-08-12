@@ -8,7 +8,24 @@
 		<constant name="struts.objectFactory" value="spring"/>
 	 -->
 	<package name="basicstruts2" extends="struts-default">
+		<interceptors>
+			
+			<interceptor class="lyh.bos.interceptor.BOSLoginInterceptor" name="bosLoginInteceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack">
+				</interceptor-ref>
+				<interceptor-ref name="bosLoginInteceptor">
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
 		<!-- 需要进行权限控制的页面访问 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		
 		<action name="page_*_*">
 			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
 		</action>
@@ -17,5 +34,13 @@
 			<result name="login">/login.jsp</result>
 			<result name="home">/index.jsp</result>
 		</action>
+		<!-- 取派员管理 -->
+		<action name="staffAction_*" class="staffAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+		
 	</package>
+	
+	
+	
 </struts>
