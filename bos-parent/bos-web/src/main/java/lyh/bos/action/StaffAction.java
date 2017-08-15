@@ -96,4 +96,6 @@ public class StaffAction extends BaseAction<Staff> {
         staffService.update(model);
         return "list";
     }
+    
+    
 }

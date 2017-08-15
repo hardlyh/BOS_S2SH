@@ -83,7 +83,6 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         int currentPage = bean.getCurrentPage();
         int pageSize = bean.getPageSize();
         DetachedCriteria criteria = bean.getCriteria();
-
         // 查询所有条数
         criteria.setProjection(Projections.rowCount());
         List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(criteria);
@@ -94,5 +93,9 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         int firstResult = (currentPage-1)*pageSize;
         int maxResults = pageSize;
         bean.setRows(this.getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults));
+    }
+
+    public void saveOrUpdate(T entity) {
+        this.getHibernateTemplate().saveOrUpdate(entity);
     }
 }
