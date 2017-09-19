@@ -1,0 +1,26 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache
+            maxElementsInMemory="10000"    
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+ 
+    <!-- 
+    	内存中最多可以存储多少个数据 
+    	是否永久有效
+    	空闲时间
+    	存活时间
+		内存空间不够是否存储到磁盘
+    	磁盘最大存储个数
+    	服务器重启,磁盘数据是否需要
+    	线程
+      	淘汰策略(最近最少使用)  
+     -->  
+</ehcache>
