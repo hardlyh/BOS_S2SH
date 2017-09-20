@@ -107,4 +107,10 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
     public List<T> findByCriteria(DetachedCriteria obj) {
         return (List<T>) this.getHibernateTemplate().findByCriteria(obj);
     }
+
+    @Override
+    public void deleteByid(Serializable id) {
+        String hql = "delete "+entityClass.getSimpleName()+" where id=?";
+        this.getHibernateTemplate().bulkUpdate(hql, id);
+    }
 }

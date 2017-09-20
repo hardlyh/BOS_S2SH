@@ -13,22 +13,6 @@ import org.junit.Test;
 
 public class POITest {
 
-    /**
-     * 测试使用POI解析xml
-     */
-    @Test
-    public void test1() throws FileNotFoundException, IOException {
-        String path = "F:\\BaiduYunDownload\\BOS-day05\\BOS-day05\\资料\\区域导入测试数据.xls";
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(new FileInputStream(new File(path)));
-        HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
-        for(Row row:hssfSheet){
-            for(Cell cell:row){
-                String value=cell.getStringCellValue();
-                System.out.print(value+" "+"1"+"  ");
-            }
-            System.out.println();
-        }
-
-    }
+  
 
 }

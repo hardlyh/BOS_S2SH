@@ -9,4 +9,5 @@ import lyh.bos.domain.Workbill;
 @Repository
 public class WorkbillDaoImpl extends BaseDaoImpl<Workbill> implements WorkbillDao{
 
+
 }

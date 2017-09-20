@@ -40,8 +40,9 @@
 	    	 $.messager.confirm("确认删除", "你确定要删除所选择的取派员吗", function(r) {
 	                var array = new Array();
 	                if (r) {
-	                    for (var i = 0; i < rows.length; i++) {
-	                        var staff = rows[i];
+	                    for (var i = 0; i < arr.length; i++) {
+	                        var staff = arr[i];
+	                        console.log(staff);
 	                        var id = staff.id;
 	                        array.push(id);
 	                    }

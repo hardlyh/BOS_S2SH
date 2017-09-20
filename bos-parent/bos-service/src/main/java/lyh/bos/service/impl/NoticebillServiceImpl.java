@@ -17,6 +17,7 @@ import lyh.bos.domain.Workbill;
 import lyh.bos.service.CustomerService;
 import lyh.bos.service.NoticebillService;
 import lyh.bos.utils.BOSUtils;
+import lyh.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -63,9 +64,36 @@ public class NoticebillServiceImpl implements NoticebillService{
             
         }else{
             model.setOrdertype(Noticebill.ORDERTYPE_MAN);
-            
         }
         noticebillDao.save(model);
+    }
+
+    /* 
+     * 分页查询
+     */
+    public void pageQuery(PageBean pageBean) {
+        noticebillDao.pageQuery(pageBean);
+    }
+
+    /* 
+     * 人工分单
+     */
+    public void dispatch(Noticebill model) {
+        String id = model.getId();
+        Noticebill obj = noticebillDao.findById(id);
+        Staff staff = new Staff();
+        if(staff!=null){  
+            obj.setStaff(staff);
+            Workbill workbill=new Workbill();
+            workbill.setAttachbilltimes(0);  // 追单次数
+            workbill.setBuildtime(new Timestamp(System.currentTimeMillis()));  // 创建时间
+            workbill.setNoticebill(model);   // 工单页面关联通知单
+            workbill.setPickstate(Workbill.PICKSTATE_NO);   // 取件状态
+            workbill.setRemark(model.getRemark());  // 备注
+            workbill.setStaff(staff);  // 管理取派员
+            workbill.setType(Workbill.TYPE_1);  // 工单状态(新单)
+            workbillDao.save(workbill);  // 保存工单
+        }
     }
     
 

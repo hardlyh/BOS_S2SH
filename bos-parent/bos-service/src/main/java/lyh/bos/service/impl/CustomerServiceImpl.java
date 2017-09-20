@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.updateCustomer(num, customerIds);
     }
 
-    /* 
+    /*
      * 根据手机号查询客户
      */
     public Customer findByTel(String c_Tel) {
@@ -49,14 +49,19 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    /* 
+    /*
      * 根据地址查询该地址对应的定区id
      */
     public String findByAddressTodecided(String addr) {
         DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
         criteria.add(Restrictions.eq("address", addr));
         List<Customer> list = customerDao.findByCriteria(criteria);
-        return list.get(0).getDecidedzone().getId();
+        if(list.size()>0 && list.get(0).getDecidedzone()!=null){
+            return list.get(0).getDecidedzone().getId();
+        }else{
+            return null;
+        }
+       
     }
 
 }

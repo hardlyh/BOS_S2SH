@@ -1,8 +1,12 @@
 package lyh.bos.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.SimpleFormatter;
+
+import freemarker.template.SimpleDate;
 
 /**
  * 业务通知单
@@ -34,6 +38,11 @@ public class Noticebill implements java.io.Serializable {
 	public static final String  ORDERTYPE_MAN = "人工分单";
 	
 	// Constructors
+	
+	public String getDateStr(){
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    return  dateFormat.format(pickdate);
+	}
 
 	/** default constructor */
 	public Noticebill() {

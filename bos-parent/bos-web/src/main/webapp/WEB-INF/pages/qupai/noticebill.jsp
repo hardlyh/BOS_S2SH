@@ -33,7 +33,21 @@
 	}
 	
 	function doCancel(){
-		alert("销单...");
+		var arr = $('#grid').datagrid("getSelections");
+        if(arr.length>0){
+             $.messager.confirm("提示窗口", "是否确认删除", function(r){
+                 var array=new Array();
+                 for(var i =0 ;i<arr.length;i++){
+                     var staff = arr[i];
+                     var id=staff.id;
+                     array.push(id);
+                 }  
+                 var ids=array.join(",");
+                 location.href = "workbillAction_delete.action?ids=" + ids;
+             })
+        }else{
+            $.messager.alert("提示信息", "请选择数据", "warning");
+        }
 	}
 	
 	function doSearch(){
@@ -62,10 +76,14 @@
 		field : 'id',
 		checkbox : true,
 	}, {
-		field : 'noticebill_id',
+		field : 'noticebill.id',
 		title : '通知单号',
 		width : 120,
-		align : 'center'
+		align : 'center',
+		formatter : function(data, row, index) {
+            return row.noticebill.id;
+        }
+		
 	},{
 		field : 'type',
 		title : '工单类型',
@@ -77,7 +95,7 @@
 		width : 120,
 		align : 'center'
 	}, {
-		field : 'buildtime',
+		field : 'buildtimeN',
 		title : '工单生成时间',
 		width : 120,
 		align : 'center'
@@ -90,13 +108,45 @@
 		field : 'staff.name',
 		title : '取派员',
 		width : 100,
-		align : 'center'
+		align : 'center',
+		formatter : function(data, row, index) {
+            return row.staff.name;
+        }
 	}, {
 		field : 'staff.telephone',
 		title : '联系方式',
 		width : 100,
-		align : 'center'
-	} ] ];
+		align : 'center',
+		formatter : function(data, row, index) {
+            return row.staff.telephone;
+        }
+	},
+    {
+        field : 'noticebill.ordertype',
+        title : '是否自动分单',
+        width : 100,
+        align : 'center',
+        formatter : function(data, row, index) {
+        	return row.noticebill.ordertype;
+        }
+    } ] ];
+	
+	  $.fn.serializeJson=function(){  
+	        var serializeObj={};  
+	        var array=this.serializeArray();
+	        $(array).each(function(){  
+	            if(serializeObj[this.name]){  
+	                if($.isArray(serializeObj[this.name])){  
+	                    serializeObj[this.name].push(this.value);  
+	                }else{  
+	                    serializeObj[this.name]=[serializeObj[this.name],this.value];  
+	                }  
+	            }else{  
+	                serializeObj[this.name]=this.value;   
+	            }  
+	        });  
+	        return serializeObj;  
+	    }; 
 	
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果
@@ -109,10 +159,10 @@
 			border : true,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [5,10,15],
 			pagination : true,
 			toolbar : toolbar,
-			url :  "",
+			url :  "workbillAction_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -129,8 +179,8 @@
 	        resizable:false
 	    });
 		$("#btn").click(function(){
-			alert("执行查询...");
-			$("#searchForm").get(0).reset();// 重置查询表单
+			var p=$("#searchForm").serializeJson();
+            $("#grid").datagrid("load",p);
 			$("#searchWindow").window("close"); // 关闭窗口
 		});
 	});
@@ -155,15 +205,11 @@
 					</tr>
 					<tr>
 						<td>客户电话</td>
-						<td><input type="text" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="noticebill.telephone" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>取派员</td>
-						<td><input type="text" class="easyui-validatebox" required="true"/></td>
-					</tr>
-					<tr>
-						<td>受理时间</td>
-						<td><input type="text" class="easyui-datebox" required="true"/></td>
+						<td><input type="text" name="staff.name" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td colspan="2"><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>

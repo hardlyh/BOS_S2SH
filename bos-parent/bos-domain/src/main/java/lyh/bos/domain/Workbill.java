@@ -1,6 +1,8 @@
 package lyh.bos.domain;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 工单
@@ -29,6 +31,13 @@ public class Workbill implements java.io.Serializable {
 	public static final String  PICKSTATE_YES = "已取件";
 	
 	// Constructors
+	
+	
+	public String getBuildtimeN(){
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    String time = dateFormat.format(buildtime);
+	    return time;
+	}
 
 	/** default constructor */
 	public Workbill() {

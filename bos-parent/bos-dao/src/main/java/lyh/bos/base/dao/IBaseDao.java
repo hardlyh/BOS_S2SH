@@ -23,4 +23,5 @@ public interface IBaseDao<T> {
 	public List<T> findAll();
 	public void executeUpdate(String queryVo,Object... obj);
 	public void pageQuery(PageBean bean);
+	public void deleteByid(Serializable id);
 }

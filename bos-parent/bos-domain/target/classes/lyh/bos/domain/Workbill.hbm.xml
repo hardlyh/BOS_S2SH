@@ -7,10 +7,10 @@
             <column name="id" length="32" />
             <generator class="uuid" />
         </id>
-        <many-to-one name="noticebill" class="lyh.bos.domain.Noticebill" fetch="select">
+        <many-to-one name="noticebill" lazy="false" class="lyh.bos.domain.Noticebill" fetch="select">
             <column name="noticebill_id" length="32" />
         </many-to-one>
-        <many-to-one name="staff" class="lyh.bos.domain.Staff" fetch="select">
+        <many-to-one name="staff" cascade="save-update,persist" lazy="false" class="lyh.bos.domain.Staff" fetch="select">
             <column name="staff_id" length="32" />
         </many-to-one>
         <property name="type" type="java.lang.String">
