@@ -61,6 +61,7 @@
 		<!-- 角色管理-->
 		<action name="roleAction_*" class="roleAction" method="{1}">
 			<result name="list">/WEB-INF/pages/admin/role.jsp</result>
+			<result name="update2">/WEB-INF/pages/admin/role_update.jsp</result>
 		</action>
 		<!-- 工单管理-->
 		<action name="workbillAction_*" class="workbillAction" method="{1}">

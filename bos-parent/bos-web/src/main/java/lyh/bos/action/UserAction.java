@@ -131,4 +131,19 @@ public class UserAction extends BaseAction<User> {
         return null;
 
     }
+    
+    
+    private String ids;
+    
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+    /**
+     * @return
+     */
+    public String delete(){
+        userService.delete(ids);
+        return null;
+    }
+   
 }

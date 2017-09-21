@@ -17,4 +17,9 @@ public interface IUserService {
     void pageQuery(PageBean pageBean);
 
 
+    void delete(String ids);
+
+
+
+
 }

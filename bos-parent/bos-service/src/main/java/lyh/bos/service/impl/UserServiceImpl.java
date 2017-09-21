@@ -1,5 +1,6 @@
 package lyh.bos.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,5 +69,22 @@ public class UserServiceImpl implements IUserService {
         userDao.pageQuery(pageBean);
         
     }
+
+    @Override
+    public void delete(String ids) {
+        if(StringUtils.isNotBlank(ids)){
+            String[] idArr = ids.split(",");
+            for (String str : idArr) {
+                int id = Integer.parseInt(str);
+                User user = userDao.findById(id);
+                user.setNoticebills(null);
+                user.setRoles(null);
+                userDao.delete(user);
+            }
+        }
+        
+    }
+
+   
 
 }

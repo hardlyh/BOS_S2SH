@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>角色管理</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -35,6 +35,17 @@
 	type="text/javascript"></script>	
 <script type="text/javascript">
 	$(function(){
+		
+		
+		function doEdit(){
+			var arr = $('#grid').datagrid("getSelections");
+			if(arr.length==1){
+				location.href='roleAction_update.action?id='+arr[0].id;
+			}else{
+				$.messager.alert("提示信息", "请选择数据", "warning");
+			}
+			
+		}
 		// 数据表格属性
 		$("#grid").datagrid({
 			toolbar : [
@@ -45,7 +56,13 @@
 					handler : function(){
 						location.href='${pageContext.request.contextPath}/page_admin_role_add.action';
 					}
-				}           
+				} ,
+				{
+                    id : 'edit',
+                    text : '修改角色',
+                    iconCls : 'icon-edit',
+                    handler :doEdit 
+                } 
 			],
 			url : 'roleAction_pageQuery.action',
 			pagination : true,

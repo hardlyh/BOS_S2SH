@@ -72,7 +72,23 @@ public class FunctionAction extends BaseAction<Function> {
      */
     public String findMenu() {
         List<Function> functions = functionService.findMenu();
-        this.objectToString(functions, new String[] { "roles", "parentFunction","children"});
+        this.objectToString(functions, new String[] { "roles", "parentFunction", "children" });
+        return null;
+    }
+
+    private String ids;
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    /**
+     * 删除用户
+     * 
+     * @return
+     */
+    public String delete() {
+        functionService.deleteMatch(ids);
         return null;
     }
 }

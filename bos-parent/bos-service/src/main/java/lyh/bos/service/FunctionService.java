@@ -19,5 +19,8 @@ public interface FunctionService {
     List<Function> findByZindex();
 
     List<Function> findMenu();
+
+
+    void deleteMatch(String ids);
     
 }

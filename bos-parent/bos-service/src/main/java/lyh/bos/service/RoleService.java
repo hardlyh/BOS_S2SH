@@ -13,4 +13,10 @@ public interface RoleService {
 
     List<Role> findAll();
 
+    Role findById(String id);
+
+    void test();
+
+    void update2(Role model,String functionIds);
+
 }

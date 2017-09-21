@@ -52,16 +52,16 @@
 					<td>口令:</td><td><input type="password" name="password" id="password" class="easyui-validatebox" required="true" validType="minLength[5]" /></td></tr>
 				<tr class="title"><td colspan="4">其他信息</td></tr>
 	           	<tr><td>工资:</td><td><input type="text" name="salary" id="salary" class="easyui-numberbox" /></td>
-					<td>生日:</td><td><input type="text" name="birthday" id="birthday" class="easyui-datebox" /></td></tr>
+					<td>生日:</td><td><input type="text" name="birthday" id="birthday" class="easyui-datebox" data-options="editable:false"/></td></tr>
 	           	<tr><td>性别:</td><td>
-	           		<select name="gender" id="gender" class="easyui-combobox" style="width: 150px;">
+	           		<select name="gender" id="gender" data-options="editable:false" class="easyui-combobox" style="width: 150px;">
 	           			<option value="">请选择</option>
 	           			<option value="男">男</option>
 	           			<option value="女">女</option>
 	           		</select>
 	           	</td>
 					<td>单位:</td><td>
-					<select name="station" id="station" class="easyui-combobox" style="width: 150px;">
+					<select name="station" id="station" data-options="editable:false" class="easyui-combobox" style="width: 150px;">
 	           			<option value="">请选择</option>
 	           			<option value="总公司">总公司</option>
 	           			<option value="分公司">分公司</option>

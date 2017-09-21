@@ -28,6 +28,29 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		
+		function doDelete(){
+			var items = $('#grid').datagrid('getSelections');
+	        if(items.length>0){
+	            $.messager.confirm("提示窗口", "是否确认删除", function(r){
+	                if(r){
+	                    var arr = new Array();
+	                    for(var i=0 ;i<items.length;i++){
+	                        arr.push(items[i].id);
+	                    }
+	                    var ids=arr.join(",");
+	                    $.post("functionAction_delete.action",{ids:ids},function(data){
+	                        $('#grid').datagrid('reload');
+	                    });
+	                }
+	            })
+	        }else{
+	            $.messager.alert("提示信息", "请选择数据", "warning");
+	        }
+		}
+		
+		
 		$("#grid").datagrid({
 			toolbar : [
 				{
@@ -37,7 +60,13 @@
 					handler : function(){
 						location.href='${pageContext.request.contextPath}/page_admin_function_add.action';
 					}
-				}           
+				},
+				{
+                    id : 'delete',
+                    text : '删除权限',
+                    iconCls : 'button-delete',
+                    handler : doDelete
+                }      
 			],
 			url : 'functionAction_pageQuqey.action',
 			pagination : true,

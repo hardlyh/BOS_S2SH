@@ -2,6 +2,7 @@ package lyh.bos.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -69,6 +70,19 @@ public class FunctionServiceImpl implements FunctionService {
             list = functionDao.findMenuById(user.getId());
         }
         return list;
+    }
+
+    public void deleteMatch(String ids) {
+        if(StringUtils.isNoneBlank(ids)){
+            String[] idArr = ids.split(",");
+            for (String str : idArr) {
+                Function function = functionDao.findById(str);
+                function.setParentFunction(null);
+                function.setRoles(null);
+                function.setChildren(null);
+                functionDao.delete(function);
+            }
+        }
     }
 
 }

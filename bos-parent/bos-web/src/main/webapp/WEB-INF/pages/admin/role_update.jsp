@@ -42,7 +42,21 @@
 			dataType : 'json',
 			success : function(data) {
 				$.fn.zTree.init($("#functionTree"), setting, data);
-				
+				treeObj = $.fn.zTree.getZTreeObj("functionTree");
+				var id = $("#R_id").val();
+				$.post("roleAction_listAjaxById.action",{roleId:id},function(data){   // 获取对应数据所有的权限
+				    var nodes = treeObj.getNodes();  // 获得所有节点
+				    var nodesArr = treeObj.transformToArray(nodes);    // 将zTree Array转换为普通Array
+				    var functionArr = data.functions;  // 得到改角色对应的权限对象
+				    for(var i=0 ;i<nodesArr.length;i++){  // 遍历节点
+				    	for(var j =0;j<functionArr.length;j++){  // 遍历权限
+				    		if(nodesArr[i].id==functionArr[j].id ){  // 如果权限的id和节点的id相同
+				    			treeObj.checkNode(nodesArr[i], true, true);  // 勾选这个节点
+				    		}
+				    	}
+				    }
+				    treeObj.expandAll(true); // 展开所有节点
+				});
 			},
 			error : function(msg) {
 				alert('树加载异常!');
@@ -54,12 +68,16 @@
 		$('#save').click(function(){
 			var v = $("#roleForm").form("validate");
 			if(v){
-		        var nodes = treeObj.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+		        var nodes = treeObj.getCheckedNodes(true);// 在提交表单之前将选中的checkbox收集
 		        var array = new Array();
+		       
 		        for(var i=0;i<nodes.length;i++){
-		            array.push(nodes[i].id);
+		        	if(nodes[i].id>=100){
+		        		  array.push(nodes[i].id);
+		        	}
 		        }
 		        var functionIds = array.join(",");
+		        alert(functionIds);
 		        $("input[name=functionIds]").val(functionIds);
 		        $("#roleForm").submit();
 			}
@@ -79,7 +97,8 @@
 		</div>
 	</div>
 	<div region="center" style="overflow: auto; padding: 5px;" border="false">
-		<form id="roleForm" method="post" action="roleAction_save.action">
+		<form id="roleForm" method="post" action="roleAction_update2.action">
+	       	<input type="hidden" id="R_id" name="id" value="${id}">
 	       	<input type="hidden" name="functionIds">
 			<table class="table-edit" width="80%" align="center">
 				<tr class="title">
@@ -87,15 +106,15 @@
 				</tr>
 				<tr>
 					<td width="200">关键字</td>
-					<td><input type="text" name="code" class="easyui-validatebox" data-options="required:true" /></td>
+					<td><input type="text" name="code" class="easyui-validatebox" value="${code}" data-options="required:true" /></td>
 				</tr>
 				<tr>
 					<td>名称</td>
-					<td><input type="text" name="name" class="easyui-validatebox" data-options="required:true" /></td>
+					<td><input type="text" name="name" class="easyui-validatebox" value="${name}" data-options="required:true" /></td>
 				</tr>
 				<tr>
 					<td>描述</td>
-					<td><textarea name="description" rows="4" cols="60"></textarea></td>
+					<td><textarea name="description" rows="4" cols="60">${description}</textarea></td>
 				</tr>
 				<tr>
 					<td>授权</td>

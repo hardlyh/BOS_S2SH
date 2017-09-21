@@ -84,7 +84,7 @@
 						<td>
 							<input name="parentFunction.id" 
 							class="easyui-combobox" 
-							data-options="valueField:'id',textField:'name',
+							data-options="editable:false,valueField:'id',textField:'name',
 							url:'functionAction_listajax.action'"/>
 						</td>
 					</tr>
