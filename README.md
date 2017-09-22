@@ -2,6 +2,10 @@
 
 - s2sh框架简单实现了BOS系统的部分功能(物流系统)
 
+- 测试数据文件为bos_ssm.sql , 数据库为mysql  编码 utf-8
+
+- 管理员账号密码 u : admin   p : admin
+
 #### 项目构建
 
 	- 使用maven构建项目

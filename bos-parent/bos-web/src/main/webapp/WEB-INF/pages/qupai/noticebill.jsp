@@ -27,6 +27,23 @@
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
+
+	$.fn.serializeJson=function(){  
+	    var serializeObj={};  
+	    var array=this.serializeArray();
+	    $(array).each(function(){  
+	        if(serializeObj[this.name]){  
+	            if($.isArray(serializeObj[this.name])){  
+	                serializeObj[this.name].push(this.value);  
+	            }else{  
+	                serializeObj[this.name]=[serializeObj[this.name],this.value];  
+	            }  
+	        }else{  
+	            serializeObj[this.name]=this.value;   
+	        }  
+	    });  
+	    return serializeObj;  
+	}; 
 	
 	function doRepeat(){
 		alert("追单...");
@@ -130,23 +147,6 @@
         	return row.noticebill.ordertype;
         }
     } ] ];
-	
-	  $.fn.serializeJson=function(){  
-	        var serializeObj={};  
-	        var array=this.serializeArray();
-	        $(array).each(function(){  
-	            if(serializeObj[this.name]){  
-	                if($.isArray(serializeObj[this.name])){  
-	                    serializeObj[this.name].push(this.value);  
-	                }else{  
-	                    serializeObj[this.name]=[serializeObj[this.name],this.value];  
-	                }  
-	            }else{  
-	                serializeObj[this.name]=this.value;   
-	            }  
-	        });  
-	        return serializeObj;  
-	    }; 
 	
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果

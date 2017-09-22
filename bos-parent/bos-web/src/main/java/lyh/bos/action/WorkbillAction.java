@@ -19,9 +19,10 @@ public class WorkbillAction extends BaseAction<Workbill> {
     public WorkbillService workbillService;
 
     public String pageQuery() {
-
+        DetachedCriteria criteria = pageBean.getCriteria();
+        criteria.add(Restrictions.isNotNull("staff"));
         if (model != null) {
-            DetachedCriteria criteria = pageBean.getCriteria();
+           
             if (model.getNoticebill() != null) {
                 criteria.createAlias("noticebill", "n");
                 criteria.add(Restrictions.like("n.telephone", "%" + model.getNoticebill().getTelephone() + "%"));

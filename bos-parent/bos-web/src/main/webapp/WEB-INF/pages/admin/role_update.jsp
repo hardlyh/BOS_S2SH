@@ -77,7 +77,6 @@
 		        	}
 		        }
 		        var functionIds = array.join(",");
-		        alert(functionIds);
 		        $("input[name=functionIds]").val(functionIds);
 		        $("#roleForm").submit();
 			}

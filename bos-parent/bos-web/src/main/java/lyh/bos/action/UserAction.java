@@ -8,6 +8,9 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -126,6 +129,8 @@ public class UserAction extends BaseAction<User> {
      * @return
      */
     public String pageQuery() {
+        DetachedCriteria criteria = pageBean.getCriteria();
+        criteria.add(Restrictions.ne("username", "admin"));
         userService.pageQuery(pageBean);
         this.objectToString(pageBean,new String[]{"noticebills","roles"});
         return null;
